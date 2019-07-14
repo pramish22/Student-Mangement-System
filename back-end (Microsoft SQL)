@@ -1,0 +1,44 @@
+USE [SMS]
+GO
+/****** Object:  StoredProcedure [dbo].[AddStudent]    Script Date: 11/20/2018 12:14:39 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE  procedure [dbo].[AddStudent]
+(
+@StudentID	nvarchar(50),
+@StudentName	nvarchar(50),
+@FatherName	nvarchar(50),
+@Address	nvarchar(50),
+@Phone	nvarchar(50),
+@Class	nvarchar(50),
+@Section	nvarchar(50),
+@SoftwareEngg int,
+@DBMS int,
+@OperatingSys int,
+@ADA int,
+@CloudComputing int,
+@FLAT int,
+@Total int
+)
+
+as
+begin
+insert into  Student
+values (@StudentID, 
+@StudentName, 
+@FatherName, 
+@Address, 
+@Phone, 
+@Class, 
+@Section, 
+@SoftwareEngg, 
+@DBMS, 
+@OperatingSys, 
+@ADA, 
+@CloudComputing, 
+@FLAT, 
+@Total)
+end
+

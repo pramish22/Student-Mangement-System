@@ -1,0 +1,72 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Student
+{
+    public partial class frmAddStudent : Form
+    {
+        public frmAddStudent()
+        {
+            InitializeComponent();
+        }
+
+      
+        int SoftwareEngg, DBMS, OperatingSys, ADA, CloudComputing, FLAT, Total;
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=SMS;Integrated Security=True");
+
+                SqlCommand cmd = new SqlCommand("AddStudent", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                // Paramenters Student Table
+
+cmd.Parameters.Add("@StudentID",  SqlDbType.NVarChar, 50).Value = txtID.Text;
+cmd.Parameters.Add("@StudentName", SqlDbType.NVarChar, 50).Value= xtSname.Text;
+cmd.Parameters.Add("@FatherName", SqlDbType.NVarChar, 50).Value = txtFname.Text;
+cmd.Parameters.Add("@Address", SqlDbType.NVarChar, 50).Value = txtAddress.Text;
+cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 50).Value = txtPhone.Text;
+cmd.Parameters.Add("@Class", SqlDbType.NVarChar, 50).Value = cboClass.Text;
+cmd.Parameters.Add("@Section", SqlDbType.NVarChar, 50).Value = txtSec.Text;
+cmd.Parameters.Add("@SoftwareEngg", SqlDbType.NVarChar, 50).Value = txtSoftwareEngg.Text;
+cmd.Parameters.Add("@DBMS", SqlDbType.NVarChar, 50).Value = txtDBMS.Text;
+cmd.Parameters.Add("@OperatingSys", SqlDbType.NVarChar, 50).Value = txtOperatingSys.Text;
+cmd.Parameters.Add("@ADA", SqlDbType.NVarChar, 50).Value = txtADA.Text;
+cmd.Parameters.Add("@CloudComputing", SqlDbType.NVarChar, 50).Value = txtCloudComputing.Text;
+cmd.Parameters.Add("@FLAT", SqlDbType.NVarChar, 50).Value = txtFLAT.Text;
+cmd.Parameters.Add("@Total", SqlDbType.NVarChar, 50).Value = txtTotal.Text;
+
+SoftwareEngg = int.Parse(txtSoftwareEngg.Text);
+DBMS = int.Parse(txtDBMS.Text);
+OperatingSys = int.Parse(txtOperatingSys.Text);
+ADA = int.Parse(txtADA.Text);
+CloudComputing = int.Parse(txtCloudComputing.Text);
+FLAT = int.Parse(txtFLAT.Text);
+
+Total = int.Parse(txtSoftwareEngg.Text) + int.Parse(txtDBMS.Text) + int.Parse(txtOperatingSys.Text) + int.Parse(txtADA.Text) + int.Parse(txtCloudComputing.Text) + int.Parse(txtFLAT.Text);
+txtTotal.Text = Total.ToString();
+Total = int.Parse(txtTotal.Text);
+                
+con.Open();
+cmd.ExecuteNonQuery();
+con.Close();
+}
+
+catch (Exception ex)
+            {
+                MessageBox .Show ("Error:" +ex.Message);
+            }
+        }
+    }
+}
